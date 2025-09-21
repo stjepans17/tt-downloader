@@ -21,7 +21,7 @@ export default function Form({ showErrorToast }: FormComponentProps) {
       router.push('/success');
     },
     onError: (error) => {
-      console.log('Download failed:', error);
+      console.error('Download failed:', error);
       showErrorToast && showErrorToast(true); 
     }
   });

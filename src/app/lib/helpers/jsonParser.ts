@@ -3,7 +3,6 @@ export function parseJsonSafely(jsonString: string) {
     const firstParse = JSON.parse(jsonString);
 
     if (typeof firstParse === 'string') {
-      console.log('needs double parsing!!');
       return JSON.parse(firstParse);
     }
 
