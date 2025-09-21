@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from 'react';
 import { parseJsonSafely } from '../lib/helpers/jsonParser';
-import { downloadImages } from '../lib/helpers/imagesDownloader';
+import { downloadContent } from '../lib/helpers/imagesDownloader';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import Spinner from '../components/spinner';
 import ErrorToast from '../components/errorToast';
@@ -14,38 +14,42 @@ export default function SuccessPage() {
   const [contentURLs, setContentURLs] = useState<string[]>([]);
   const [showErrorToast, setShowErrorToast] = useState<boolean>(false);
 
-
   const downloadMutation = useMutation({
-    mutationFn: (images: string[]) => downloadImages(images),
+    mutationFn: (content: string[]) => downloadContent(content),
     onSuccess: () => router.push('/'),
     onError: () => setShowErrorToast(true),
   });
 
   function handleDownload() {
     downloadMutation.mutate(contentURLs);
-  };
 
+  };
+  
   useEffect(() => {
+    // if(localStorage.length == 0) {
+    //   router.push('/');
+    // }
+
     const storedData = localStorage.getItem('downloadResult');
     if (storedData) {
       const parsedJson = parseJsonSafely(storedData);
 
       if (parsedJson.data?.images) {
         setIsSlideshow(true);
-        setContentURLs(parsedJson.data.images);
+        setContentURLs(parsedJson.data.images)
       }
 
       else if (parsedJson.data?.noWatermarkMp4) {
-        setContentURLs(parsedJson.data.noWatermarkMp4);
+        setContentURLs([parsedJson.data.noWatermarkMp4]);
       }
-
+      
       setDownloadData(JSON.stringify(storedData));
-      localStorage.removeItem('downloadResult');
+      localStorage.removeItem('downloadResult'); 
     }
   }, []);
-
+  
   if (!downloadData) {
-    return <div>Loading...</div>;
+    return <div>No data</div>;
   }
 
   return (
@@ -81,7 +85,7 @@ export default function SuccessPage() {
 
         {isSlideshow == true ? (
           <p className="text-gray-600 mb-6">
-            {`Found ${contentURLs.length} images`}
+            {isSlideshow ? `Found ${contentURLs.length} images.` : `Found the video`}
           </p>
         ) : null}
 
@@ -96,7 +100,7 @@ export default function SuccessPage() {
             onClick={handleDownload}
             disabled={downloadMutation.isPending}
             className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 hover:cursor-pointer"
-          >Download images</button>
+          >{isSlideshow ? 'Download images' : 'Download video'}</button>
           <button
             onClick={() => window.history.back()}
             disabled={downloadMutation.isPending}
