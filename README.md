@@ -1,9 +1,10 @@
-# Next.js Demo
+# TikTok Content Downloader
 
-A barebones Next.js instance showcasing [Sevalla's application hosting](https://sevalla.com/application-hosting/).
+Open-source TikTok Next.js app that allows you to install any TikTok video or slideshow without watermark.
 
----
-Sevalla is the intuitive platform and the perfect home for your web projects. Deploy applications, databases, and static sites effortlessly.
+## Development stack
+
+Built using Nextjs, Tailwind and Tanstack.
 
 ## Getting Started
 
@@ -20,12 +21,3 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.

@@ -13,9 +13,14 @@
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.1",
+    "@tanstack/react-query": "^5.89.0",
+    "@tanstack/react-query-devtools": "^5.89.0",
+    "axios": "^1.12.2",
     "next": "15.2.4",
+    "rahad-media-downloader": "^2.1.14",
     "react": "^19",
-    "react-dom": "^19"
+    "react-dom": "^19",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@types/node": "^22",
